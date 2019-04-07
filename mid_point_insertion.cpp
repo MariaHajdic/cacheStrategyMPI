@@ -2,6 +2,9 @@
 #include <list>
 #include <optional>
 
+#define HOT_TRESHOLD 10
+#define INFLATION 200
+
 struct Element {
     int value; 
     int hits = 0; 
@@ -68,7 +71,7 @@ public:
 
 protected:
     std::list<Element> data;
-    int hot_treshold = 3;
+    int hot_treshold = HOT_TRESHOLD;
 
 private:
     int max_size;
@@ -108,7 +111,7 @@ public:
 
 class Cache {
 public:
-    Cache() : hot(2), warm(5) {};
+    Cache() : hot(8), warm(120) {};
 
     int get_total_hits() {
         return hot.get_total_hits() + warm.get_total_hits();
@@ -135,7 +138,7 @@ public:
 private:
     HotSublist hot;
     WarmSublist warm;
-    int inflation = 10;
+    int inflation = INFLATION;
     int time = 0;
 };
 
